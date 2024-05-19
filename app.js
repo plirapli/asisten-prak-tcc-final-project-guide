@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const userRouter = require("./mahasiswa");
-const port = process.env.PORT || "3100";
+const port = "3100";
 const app = express();
 
 app.use(cors());
