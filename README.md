@@ -23,7 +23,7 @@ Status Code: 200
     {
       "id": 1,
       "nama": "Bagus Muhammad Akbar",
-      "nidn": "123"
+      "nidn": "0001088905"
     },
     ...
   ]
@@ -45,7 +45,7 @@ Status Code: 200
   "data": {
     "id": 1,
     "nama": "Bagus Muhammad Akbar",
-    "nidn": "123"
+    "nidn": "0001088905"
   },
 }
 ```
@@ -60,8 +60,8 @@ Request Body:
 
 ```
 {
-  "nama": "Bagus Muhammad Akbar",
-  "nidn": "123"
+  "nama": "Budi",
+  "nidn": "123123123"
 }
 ```
 
@@ -86,8 +86,8 @@ Request Body:
 
 ```
 {
-  "nama": "Bagus Muhammad Akbar",
-  "nidn": "123"
+  "nama": "Agus",
+  "nidn": "1293123921"
 }
 ```
 
