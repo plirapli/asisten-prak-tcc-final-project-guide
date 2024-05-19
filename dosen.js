@@ -3,17 +3,17 @@ const express = require("express");
 const router = express.Router();
 const connection = require("./config");
 
-// [GET] Mengambil daftar todo
+// [GET] Mengambil daftar dosen
 router.get("/", async (req, res) => {
   try {
     // Execute query ke database
-    const command = "SELECT * FROM todo";
+    const command = "SELECT * FROM dosen";
     const data = await connection.promise().query(command);
 
     // Mengirimkan respons jika berhasil
     res.status(200).json({
       status: "Success",
-      message: "Berhasil mengambil daftar todo",
+      message: "Berhasil mengambil daftar dosen",
       data: data[0],
     });
   } catch (error) {
@@ -25,28 +25,28 @@ router.get("/", async (req, res) => {
   }
 });
 
-// [POST] Memasukkan daftar todo
+// [POST] Memasukkan dosen baru ke daftar dosen
 router.post("/", async (req, res) => {
   try {
-    // mengambil title dan isi dari request body
-    const { title, isi } = req.body;
+    // mengambil nama dan nidn dari request body
+    const { nama, nidn } = req.body;
 
-    // kalau title/isi kosong atau gaada kolom title/isi di request body
-    if (!title || !isi) {
-      const msg = `${!title ? "Judul" : "Isi"} gabole kosong 😠`;
+    // kalau nama/nidn kosong atau gaada kolom nama/nidn di request body
+    if (!nama || !nidn) {
+      const msg = `${!nama ? "Nama" : "NIDN"} gabole kosong 😠`;
       const error = new Error(msg);
       error.statusCode = 401;
       throw error;
     }
 
     // Execute query ke database
-    const command = "INSERT INTO todo (title, isi) VALUES (?, ?)";
-    await connection.promise().query(command, [title, isi]);
+    const command = "INSERT INTO dosen (nama, nidn) VALUES (?, ?)";
+    await connection.promise().query(command, [nama, nidn]);
 
     // mengirimkan respons jika berhasil
     res.status(201).json({
       status: "Success",
-      message: "Berhasil menambahkan todo",
+      message: "Berhasil menambahkan dosen",
     });
   } catch (error) {
     // mengirimkan respons jika gagal
@@ -57,29 +57,31 @@ router.post("/", async (req, res) => {
   }
 });
 
-// [PUT] Mengubah suatu todo berdasarkan id
+// [PUT] Mengubah data dosen berdasarkan id
 router.put("/:id", async (req, res) => {
   try {
-    // mengambil title dan isi dari request body
+    // mengambil id dari parameter
     const { id } = req.params;
-    const { title, isi } = req.body;
 
-    // kalau title/isi kosong atau gaada kolom title/isi di request body
-    if (!title || !isi) {
-      const msg = `${!title ? "Judul" : "Isi"} gabole kosong 😠`;
+    // mengambil nama dan nidn dari request body
+    const { nama, nidn } = req.body;
+
+    // kalau nama/nidn kosong atau gaada kolom nama/nidn di request body
+    if (!nama || !nidn) {
+      const msg = `${!nama ? "Nama" : "NIDN"} gabole kosong 😠`;
       const error = new Error(msg);
-      error.statusCode = 401; // 200 (sukses), 400 (error user), 500 (error server)
+      error.statusCode = 401;
       throw error;
     }
 
     // Execute query ke database
-    const command = "UPDATE todo SET title = ?, isi = ? WHERE id = ?";
-    await connection.promise().query(command, [title, isi, id]);
+    const command = "UPDATE dosen SET nama = ?, nidn = ? WHERE id = ?";
+    await connection.promise().query(command, [nama, nidn, id]);
 
     // mengirimkan respons jika berhasil
     res.status(201).json({
       status: "Success",
-      message: "Berhasil mengubah todo",
+      message: "Berhasil mengubah data dosen",
     });
   } catch (error) {
     // mengirimkan respons jika gagal
@@ -90,19 +92,20 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// [DELETE] Menghapus suatu todo berdasarkan id
+// [DELETE] Menghapus data dosen berdasarkan id
 router.delete("/:id", async (req, res) => {
   try {
+    // mengambil id dari parameter
     const { id } = req.params;
 
     // Execute query ke database
-    const command = "DELETE FROM todo WHERE id = ?";
+    const command = "DELETE FROM dosen WHERE id = ?";
     await connection.promise().query(command, [id]);
 
     // mengirimkan respons jika berhasil
     res.status(200).json({
       status: "Success",
-      message: "Berhasil menghapus data di dalam todo",
+      message: "Berhasil menghapus dosen",
     });
   } catch (error) {
     // mengirimkan respons jika gagal
@@ -113,18 +116,18 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// [GET] Mengambil todo berdasarkan ID
+// [GET] Mengambil data dosen berdasarkan ID
 router.get("/:id", async (req, res) => {
   try {
     // mengambil id dari parameter
     const { id } = req.params;
 
     // Execute query ke database
-    const command = "SELECT * FROM todo WHERE id = ?";
+    const command = "SELECT * FROM dosen WHERE id = ?";
     const [[data]] = await connection.promise().query(command, [id]);
 
     if (!data) {
-      const error = new Error("Todo tidak ditemukan.");
+      const error = new Error("Dosen tidak ditemukan.");
       error.statusCode = 404;
       throw error;
     }
@@ -132,7 +135,7 @@ router.get("/:id", async (req, res) => {
     // Mengirimkan respons jika berhasil
     res.status(200).json({
       status: "Success",
-      message: "Berhasil mengambil daftar todo berdasarkan id " + id,
+      message: "Berhasil mengambil dosen",
       data: data,
     });
   } catch (error) {

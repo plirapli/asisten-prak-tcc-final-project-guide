@@ -4,7 +4,7 @@ const config = {
   host: "localhost",
   user: "root",
   password: "",
-  database: "prak_tcc_todolist",
+  database: "kampus_upnvy",
 };
 
 const connect = mysql.createConnection(config);
