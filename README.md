@@ -9,8 +9,6 @@
 
 ## Dokumentasi
 
-### Mahasiswa
-
 GET `/mahasiswa`
 
 Response:
