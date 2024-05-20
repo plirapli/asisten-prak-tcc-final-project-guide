@@ -13,5 +13,9 @@ app.use(express.json());
 
 app.use("/dosen", dosenRouter);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Dosen Service! 😁");
+});
+
 // Menjalankan server di port 3001
 app.listen(port, () => console.log("Server terkoneksi pada port " + port));
