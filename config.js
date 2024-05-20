@@ -1,9 +1,9 @@
 const mysql = require("mysql2");
 
 const config = {
-  host: "localhost",
+  host: "34.27.26.247",
   user: "root",
-  password: "",
+  password: "{NH1#9byN%ebp;x[",
   database: "kampus_upnvy",
 };
 
