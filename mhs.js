@@ -21,7 +21,7 @@ function kirim() {
   if (id == "") {
     // Tambah catatan
     axios
-      .post("http://localhost:3100/mahasiswa", {
+      .post("https://mahasiswa-llz4uecrhq-et.a.run.app/mahasiswa", {
         nama,
         nim,
       })
@@ -37,7 +37,7 @@ function kirim() {
       .catch((error) => console.log(error.message));
   } else {
     axios
-      .put(`http://localhost:3100/mahasiswa/${id}`, {
+      .put(`https://mahasiswa-llz4uecrhq-et.a.run.app/mahasiswa/${id}`, {
         nama,
         nim,
       })
@@ -57,7 +57,7 @@ function kirim() {
 // Ngambil catatan
 function getCatatan() {
   axios
-    .get("http://localhost:3100/mahasiswa")
+    .get("https://mahasiswa-llz4uecrhq-et.a.run.app/mahasiswa")
     .then(({ data }) => {
       const table = document.querySelector("#table-mhs");
       const { data: mahasiswa } = data;
@@ -97,7 +97,7 @@ function hapusCatatan() {
     btn.addEventListener("click", () => {
       const id = btn.dataset.id;
       axios
-        .delete(`http://localhost:3100/mahasiswa/${id}`)
+        .delete(`https://mahasiswa-llz4uecrhq-et.a.run.app/mahasiswa/${id}`)
         .then(() => getCatatan())
         .catch((error) => console.log(error));
     });
